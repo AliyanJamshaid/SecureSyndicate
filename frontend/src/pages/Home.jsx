@@ -6,8 +6,8 @@ const Home = () => {
   const { data, historicalData } = useSocket("http://localhost:5000");
 
   return (
-    <div className="p-4 bg-blue-50 min-h-screen">
-      <h1 className="text-2xl font-bold text-blue-800 mb-4">
+    <div className="p-4 bg-gray-100 min-h-screen">
+      <h1 className="text-4xl font-bold font-sans text-blue-primary mb-4">
         ESP Sensor Dashboard
       </h1>
 
