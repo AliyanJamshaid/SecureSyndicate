@@ -57,7 +57,9 @@ app.post("/api/data", (req, res) => {
     res.status(400).send({ error: "Invalid data" });
   }
 });
-
+app.use("/", (req, res) => {
+  res.send("Hello World");
+});
 // Start the server
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
