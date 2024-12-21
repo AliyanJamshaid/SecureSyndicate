@@ -1,3 +1,4 @@
+require("dotenv").config(); // Import and configure dotenv
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -5,11 +6,15 @@ const { Server } = require("socket.io"); // Import Socket.IO
 const http = require("http"); // To create the HTTP server
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000; // Use port from .env or default to 5000
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "*", // Use CORS origin from .env or default to "*"
+  })
+);
 
 // Store ESP data in memory
 let espData = { temperature: null, humidity: null };
@@ -18,7 +23,7 @@ let espData = { temperature: null, humidity: null };
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow requests from all origins (adjust as needed)
+    origin: process.env.CORS_ORIGIN || "*", // Use CORS origin from .env
     methods: ["GET", "POST"],
   },
 });
