@@ -17,7 +17,12 @@ app.use(
 );
 
 // Store ESP data in memory
-let espData = { temperature: null, humidity: null };
+let espData = {
+  temperature: null,
+  humidity: null,
+  co2: null, // Add CO2 data
+  nh4: null, // Add NH4 data
+};
 
 // Create HTTP server and initialize Socket.IO
 const server = http.createServer(app);
@@ -43,10 +48,10 @@ io.on("connection", (socket) => {
 
 // Handle POST requests (data from ESP32)
 app.post("/api/data", (req, res) => {
-  const { temperature, humidity } = req.body;
+  const { temperature, humidity, co2, nh4 } = req.body; // Destructure CO2 and NH4
 
-  if (temperature && humidity) {
-    espData = { temperature, humidity };
+  if (temperature && humidity && co2 && nh4) {
+    espData = { temperature, humidity, co2, nh4 }; // Update data object with CO2 and NH4
     console.log("Data received from ESP:", espData);
 
     // Emit data to all connected WebSocket clients (React)
@@ -57,9 +62,12 @@ app.post("/api/data", (req, res) => {
     res.status(400).send({ error: "Invalid data" });
   }
 });
+
+// Default route for testing
 app.use("/", (req, res) => {
   res.send("Hello World");
 });
+
 // Start the server
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

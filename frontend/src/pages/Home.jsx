@@ -3,7 +3,9 @@ import PieProgress from "../components/PieProgress";
 import LineChartComponent from "../components/LineChartcomponent";
 
 const Home = () => {
-  const { data, historicalData } = useSocket("http://localhost:5000");
+  const { data, historicalData } = useSocket(
+    "https://api.securesyndicate.tech"
+  );
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
@@ -11,15 +13,17 @@ const Home = () => {
         ESP Sensor Dashboard
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex flex-col justify-between">
         {/* PieChart Indicators */}
-        <div className="bg-white rounded-lg shadow-md p-4 flex justify-around items-center">
+        <div className="bg-white rounded-lg shadow-md p-10 pb-16 flex justify-around items-center mb-10">
           <PieProgress
             value={data.temperature}
             maxValue={50}
             label="Temperature"
           />
           <PieProgress value={data.humidity} maxValue={100} label="Humidity" />
+          <PieProgress value={data.co2} maxValue={1000} label="CO2" />
+          <PieProgress value={data.nh4} maxValue={10} label="NH4" />
         </div>
 
         {/* Historical Data Chart */}

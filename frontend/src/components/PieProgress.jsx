@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import { FaTemperatureHigh, FaPercentage } from "react-icons/fa";
+import { FaTemperatureHigh, FaPercentage, FaCloud } from "react-icons/fa";
 
 const PieProgress = ({ value, maxValue, label }) => {
   const chartSize = 200;
@@ -16,17 +16,18 @@ const PieProgress = ({ value, maxValue, label }) => {
   const renderIcon = () => {
     if (label === "Temperature") {
       return <FaTemperatureHigh className="text-4xl text-blue-600" />;
-    } else if (label === "Progress") {
-      return <FaPercentage className="text-4xl text-blue-600" />;
+    } else if (label === "Humidity") {
+      return <FaPercentage className="text-4xl text-green-600" />;
+    } else if (label === "CO2") {
+      return <FaCloud className="text-4xl text-gray-600" />;
+    } else if (label === "NH4") {
+      return <FaCloud className="text-4xl text-red-600" />;
     }
     return null;
   };
 
   return (
     <div className="flex flex-col items-center justify-center relative">
-      {/* <div className="flex items-center justify-center absolute top-0 left-0 right-0 bottom-0">
-        {renderIcon()}
-      </div> */}
       <PieChart width={chartSize} height={chartSize}>
         <text
           x={chartSize / 2}
@@ -55,8 +56,6 @@ const PieProgress = ({ value, maxValue, label }) => {
         <Tooltip />
       </PieChart>
       <span className="text-base text-blue-primary absolute font-semibold bottom-[-35px]">
-        {" "}
-        {/* Adjusted position for label */}
         {label}
       </span>
     </div>
