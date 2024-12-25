@@ -37,7 +37,13 @@ const PieProgress = ({ value, maxValue, label }) => {
           className="text-2xl font-bold text-blue-primary"
         >
           {value !== null
-            ? `${value}${label === "Temperature" ? "°C" : "%"}`
+            ? `${value}${
+                label === "Temperature"
+                  ? "°C"
+                  : label === "Humidity"
+                  ? "%"
+                  : "ppm"
+              }`
             : "N/A"}
         </text>
         <Pie
