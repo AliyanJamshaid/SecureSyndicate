@@ -1,6 +1,7 @@
 import useSocket from "../hooks/useSocket";
 import PieProgress from "../components/PieProgress";
 import LineChartComponent from "../components/LineChartcomponent";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const Home = () => {
   const { data, historicalData } = useSocket(
@@ -22,8 +23,24 @@ const Home = () => {
             label="Temperature"
           />
           <PieProgress value={data.humidity} maxValue={100} label="Humidity" />
-          <PieProgress value={data.co2} maxValue={1000} label="CO2" />
-          <PieProgress value={data.nh4} maxValue={10} label="NH4" />
+          <PieProgress value={data.smokeLevel} maxValue={10000} label="Smoke" />
+        </div>
+
+        {/* Display Smoke Status */}
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-bold">
+            Smoke Status: {data.smokeStatus}
+          </h2>
+        </div>
+
+        {/* Lottie Animation */}
+        <div className="flex justify-center mb-10">
+          <DotLottieReact
+            src="https://lottie.host/a322fdac-c447-4834-8bd8-2681060be640/2tCceGcbVM.lottie"
+            loop
+            autoplay
+            style={{ width: "150px", height: "150px" }} // Adjusted size for animation
+          />
         </div>
 
         {/* Historical Data Chart */}
